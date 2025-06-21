@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>个人主页</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #myPosts {
+      max-width: 500px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      align-items: center;
+    }
+
+    #profileContainer {
+      max-width: 500px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      background: #e7f1ff;
+      padding: 5px 10px;
+      margin: 3px;
+      display: inline-block;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #007bff;
+    }
+
+    .btn-group {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .edit-field {
+      margin-bottom: 15px;
+    }
+
+    .edit-field input,
+    .edit-field textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="profileContainer">
+  <h2>个人主页</h2>
+  <div id="profileView"></div>
+  <div class="btn-group">
+    <button onclick="toggleEdit()">编辑资料</button>
+    <button onclick="goHome()">返回主页</button>
+    <button onclick="logout()">退出登录</button>
+  </div>
+</div>
+
+<h3>我的历史动态</h3>
+<div id="myPosts"></div>
+
+<div id="editModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0;
+  background:rgba(0,0,0,0.4); z-index:999; justify-content:center; align-items:center;">
+  <div style="background:#fff; padding:20px; border-radius:10px; width:90%; max-width:400px;">
+    <h3>编辑动态</h3>
+    <textarea id="editContent" rows="4" style="width:100%; margin-bottom:10px;"></textarea>
+    <input type="text" id="editImage" placeholder="图片链接（可选）" style="width:100%; margin-bottom:10px;" />
+    <div style="text-align:right;">
+      <button onclick="saveEditedPost()">保存</button>
+      <button onclick="closeEditModal()">取消</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  const users = JSON.parse(localStorage.getItem("users") || "{}");
+  const currentUser = localStorage.getItem("currentUser");
+  const user = users[currentUser];
+  const container = document.getElementById("profileView");
+
+  if (!currentUser || !user) {
+    alert("未登录");
+    window.location.href = "auth.html";
+  }
+
+  function renderView() {
+    container.innerHTML = `
+      ${user.avatar ? `<img src="${user.avatar}" class="avatar">` : ""}
+      <p><strong>昵称：</strong>${user.nickname || "（未设置）"}</p>
+      <p><strong>学号：</strong>${user.id}</p>
+      <p><strong>简介：</strong>${user.bio || "（无）"}</p>
+      <p><strong>兴趣标签：</strong><br>
+        ${user.tags.length ? user.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : "（未设置）"}
+      </p>
+    `;
+  }
+
+  function renderEdit() {
+    container.innerHTML = `
+      <div class="edit-field">
+        <label>昵称</label>
+        <input type="text" id="nickname" value="${user.nickname}">
+      </div>
+      <div class="edit-field">
+        <label>头像链接</label>
+        <input type="text" id="avatar" value="${user.avatar}">
+      </div>
+      <div class="edit-field">
+        <label>个人简介</label>
+        <textarea id="bio">${user.bio}</textarea>
+      </div>
+      <div class="edit-field">
+        <label>兴趣标签（用逗号分隔）</label>
+        <input type="text" id="tags" value="${user.tags.join(',')}">
+      </div>
+      <div class="btn-group">
+        <button onclick="saveEdit()">保存</button>
+        <button onclick="renderView()">取消</button>
+      </div>
+    `;
+  }
+
+  function toggleEdit() {
+    renderEdit();
+  }
+
+  function saveEdit() {
+    user.nickname = document.getElementById("nickname").value.trim();
+    user.avatar = document.getElementById("avatar").value.trim();
+    user.bio = document.getElementById("bio").value;
+    user.tags = document.getElementById("tags").value
+      .split(",")
+      .map(t => t.trim())
+      .filter(t => t);
+
+    users[currentUser] = user;
+    localStorage.setItem("users", JSON.stringify(users));
+    renderView();
+  }
+
+  function logout() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "index.html";
+  }
+
+  function goHome() {
+    window.location.href = "index.html";
+  }
+
+  // 初始展示
+  renderView();
+</script>
+
+<script>
+  let editingPostId = null;
+
+  function renderMyPosts() {
+    const posts = JSON.parse(localStorage.getItem("dynamicPosts") || "[]");
+    const myPosts = posts.filter(p => p.author === currentUser && p.status !== "withdrawn");
+    const container = document.getElementById("myPosts");
+
+    if (myPosts.length === 0) {
+      container.innerHTML = "<p>你还没有发布任何动态。</p>";
+      return;
+    }
+
+    container.innerHTML = myPosts.map(post => `
+      <div style="border:1px solid #ccc; border-radius:8px; padding:10px; margin-bottom:10px;">
+        <p><strong>内容：</strong>${post.content}</p>
+        ${post.image ? `<img src="${post.image}" style="max-width:100%; border-radius:6px;">` : ""}
+        <p style="font-size:12px; color:gray;">${new Date(post.createdAt).toLocaleString()}</p>
+        <button onclick="openEditModal('${post.id}')">编辑</button>
+        <button onclick="deletePost('${post.id}')">删除</button>
+        <button onclick="withdrawPost('${post.id}')">撤回</button>
+      </div>
+    `).join("");
+  }
+
+  function openEditModal(postId) {
+    const posts = JSON.parse(localStorage.getItem("dynamicPosts") || "[]");
+    const post = posts.find(p => p.id === postId);
+    if (!post) return;
+
+    editingPostId = postId;
+    document.getElementById("editContent").value = post.content;
+    document.getElementById("editImage").value = post.image || "";
+    document.getElementById("editModal").style.display = "flex";
+  }
+
+  function closeEditModal() {
+    editingPostId = null;
+    document.getElementById("editModal").style.display = "none";
+  }
+
+  function saveEditedPost() {
+    const newContent = document.getElementById("editContent").value.trim();
+    const newImage = document.getElementById("editImage").value.trim();
+
+    let posts = JSON.parse(localStorage.getItem("dynamicPosts") || "[]");
+    const post = posts.find(p => p.id === editingPostId);
+    if (!post) return;
+
+    post.content = newContent;
+    post.image = newImage;
+    localStorage.setItem("dynamicPosts", JSON.stringify(posts));
+    closeEditModal();
+    renderMyPosts();
+  }
+
+  function deletePost(postId) {
+    if (!confirm("确定要删除这条动态吗？")) return;
+    let posts = JSON.parse(localStorage.getItem("dynamicPosts") || "[]");
+    posts = posts.filter(p => p.id !== postId);
+    localStorage.setItem("dynamicPosts", JSON.stringify(posts));
+    renderMyPosts();
+  }
+
+  function withdrawPost(postId) {
+    if (!confirm("确定要撤回该动态？")) return;
+    const posts = JSON.parse(localStorage.getItem("dynamicPosts") || "[]");
+    const post = posts.find(p => p.id === postId);
+    if (post) {
+      post.status = "withdrawn";
+      localStorage.setItem("dynamicPosts", JSON.stringify(posts));
+      renderMyPosts();
+    }
+  }
+
+  // 页面加载完成后调用
+  renderMyPosts();
+</script>
+
+</body>
+</html>

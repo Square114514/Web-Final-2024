@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>动态详情页</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html">首页 </a>
+    <a href="post.html">发动态</a>
+  </nav>
+
+  <fieldset id="detail">
+    <legend>动态详情</legend>
+    <div id="postDetail"></div>
+
+    <div class="leftBtn"><button id="like">点赞</button></div>
+
+    <span id="commentTop">评论</span>
+    <hr id="commentHr">
+    <textarea id="newComment" rows="3" cols="40" placeholder=" 写下你的评论吧"></textarea><br>
+    <div class="leftBtn"><button id="commentBtn" type="submit">发布</button></div>
+    <div id="commentList"></div>
+  </fieldset>
+
+
+
+  <footer>
+    <p>Web编程大作业 陈睿-2023150070</p>
+  </footer>
+
+  <script src="js/storage.js"></script>
+  <script src="js/detail.js"></script>
+
+</body>
+
+</html>
+
+
+
+<!--3. 动态详情⻚⽀持查看全⽂内容、点赞数、评论列表与时间戳；-->

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录 / 注册 - 校园交友平台</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .note {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .strength {
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .weak {
+            color: red;
+        }
+
+        .medium {
+            color: orange;
+        }
+
+        .strong {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>欢迎来到校园交友平台</h2>
+    <form id="authForm">
+        <input type="text" id="studentId" placeholder="学号" required />
+        <div id="idError" class="error"></div>
+        <input type="password" id="password" placeholder="密码" required />
+        <div id="pwdStrength" class="strength"></div>
+        <div id="pwdError" style="color: red; font-size: 13px; margin-bottom: 10px;"></div>
+        <label><input type="checkbox" id="rememberMe"> 记住我</label>
+        <button type="submit">登录 / 注册</button>
+    </form>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById("authForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const id = studentId.value.trim();
+            const pwd = password.value;
+
+            if (!id || !pwd) {
+                authMsg.textContent = "学号和密码不能为空";
+                return;
+            }
+
+            if (!/^\d{6,}$/.test(id)) {
+                idError.textContent = "学号必须为6位以上纯数字";
+                return;
+            }
+
+            let users = getUsers();
+            let user = users[id];
+
+            if (user) {
+                if (user.password !== pwd) {
+                    document.getElementById("pwdError").textContent = "密码错误，请重试";
+                } else if (user.status === "banned") {
+                    authMsg.textContent = "账号已被封禁";
+                } else {
+                    document.getElementById("pwdError").textContent = "";
+                    localStorage.setItem("currentUser", id);
+                    if (rememberMe.checked) localStorage.setItem("rememberMe", id);
+                    window.location.href = "index.html";
+                }
+            } else {
+                // 注册新用户（无头像/昵称等）
+                users[id] = {
+                    id,
+                    password: pwd,
+                    nickname: "",
+                    avatar: "",
+                    bio: "",
+                    tags: [],
+                    status: "active",
+                    createdAt: Date.now()
+                };
+                document.getElementById("pwdError").textContent = "";
+                saveUsers(users);
+                localStorage.setItem("currentUser", id);
+                if (rememberMe.checked) localStorage.setItem("rememberMe", id);
+                window.location.href = "edit-profile.html"; // 跳转资料填写页
+            }
+        });
+
+        password.addEventListener("input", function () {
+            const val = password.value;
+            const strengthDiv = document.getElementById("pwdStrength");
+
+            if (!val) {
+                strengthDiv.textContent = "";
+                return;
+            }
+
+            const hasLetter = /[a-zA-Z]/.test(val);
+            const hasNumber = /[0-9]/.test(val);
+            const hasSymbol = /[^a-zA-Z0-9]/.test(val);
+            const lengthOK = val.length >= 6;
+
+            const strengthScore = Number(hasLetter) + Number(hasNumber) + Number(hasSymbol);
+
+            if (!lengthOK || strengthScore === 1) {
+                strengthDiv.textContent = "密码强度：弱";
+                strengthDiv.className = "strength weak";
+            } else if (strengthScore === 2) {
+                strengthDiv.textContent = "密码强度：中";
+                strengthDiv.className = "strength medium";
+            } else {
+                strengthDiv.textContent = "密码强度：强";
+                strengthDiv.className = "strength strong";
+            }
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>校园生活交友平台 - 首页</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>校园生活交友平台</span>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a href="#"><i class="fas fa-home"></i> 首页</a>
+        </li>
+        <!-- 发布页链接 -->
+        <li>
+          <a href="#" id="publish-link"><i class="fas fa-plus-circle"></i> 发布页</a>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-user-plus"></i> 注册</a>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-sign-in-alt"></i> 登录</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 跑马灯公告 -->
+  <div class="marquee">
+    <div class="marquee-content">
+      <span><i class="fas fa-bullhorn"></i> 欢迎来到校园生活交友平台！</span>
+      <span><i class="fas fa-star"></i> 新用户注册即享专属福利！</span>
+      <span><i class="fas fa-trophy"></i> 校园摄影大赛火热进行中！</span>
+      <span><i class="fas fa-calendar"></i> 毕业季主题活动即将上线！</span>
+      <span><i class="fas fa-gift"></i> 每日签到领取积分奖励！</span>
+    </div>
+  </div>
+
+  <!-- 主要内容区 -->
+  <div class="container">
+    <!-- 侧边栏 -->
+    <div class="sidebar">
+      <h3><i class="fas fa-th-list"></i> 内容分类</h3>
+      <ul class="categories">
+        <li>
+          <a href="#" data-category="all"><i class="fas fa-globe"></i> 全部动态</a>
+        </li>
+        <li>
+          <a href="#" data-category="study"><i class="fas fa-book"></i> 学习日常</a>
+        </li>
+        <li>
+          <a href="#" data-category="food"><i class="fas fa-utensils"></i> 校园美食</a>
+        </li>
+        <li>
+          <a href="#" data-category="photo"><i class="fas fa-camera"></i> 摄影作品</a>
+        </li>
+        <li>
+          <a href="#" data-category="sports"><i class="fas fa-basketball-ball"></i> 运动健身</a>
+        </li>
+        <li>
+          <a href="#" data-category="music"><i class="fas fa-music"></i> 音乐艺术</a>
+        </li>
+        <li>
+          <a href="#" data-category="fun"><i class="fas fa-laugh"></i> 趣事分享</a>
+        </li>
+      </ul>
+
+      <h3 style="margin-top: 30px">
+        <i class="fas fa-hashtag"></i> 热门话题
+      </h3>
+      <div class="post-tags">
+        <span class="tag">#期末考试</span>
+        <span class="tag">#校园美食</span>
+        <span class="tag">#毕业季</span>
+        <span class="tag">#社团招新</span>
+        <span class="tag">#考研加油</span>
+        <span class="tag">#校园摄影</span>
+      </div>
+    </div>
+
+    <!-- 动态流 -->
+    <div class="feed">
+      <div class="section-header">
+        <h2 class="section-title">最新动态</h2>
+        <div class="view-toggle">
+          <button class="toggle-btn active" data-sort="time">最新</button>
+          <button class="toggle-btn" data-sort="likes">热门</button>
+        </div>
+      </div>
+
+      <!-- 动态卡片1 -->
+      <div class="post" data-category="study" data-time="2023-06-15T14:30:00" data-likes="42">
+        <div class="post-header">
+          <a href="user.html" class="user-link">
+            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="用户头像" class="avatar" />
+            <div class="user-info">
+              <div class="username">张十三</div>
+              <div class="post-time">2小时前 · 计算机与软件学院</div>
+            </div>
+          </a>
+        </div>
+        <a href="post-detail.html" class="post-link">
+          <div class="post-content">
+            <p class="post-text">
+              终于完成了期末项目！和团队一起熬了几个通宵，虽然很累但收获满满。我们的校园社交平台项目获得了老师的高度评价，太开心了！💪
+              特别感谢我的队友们，大家都超级给力！
+            </p>
+            <div class="post-tags">
+              <span class="tag">#计算机专业</span>
+              <span class="tag">#项目展示</span>
+              <span class="tag">#团队合作</span>
+            </div>
+            <div class="post-images">
+              <img
+                src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="项目截图" class="post-image" />
+              <img
+                src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="团队合影" class="post-image" />
+              <img
+                src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="代码截图" class="post-image" />
+            </div>
+          </div>
+        </a>
+        <div class="post-stats">
+          <div class="stats-item disabled">
+            <i class="fas fa-heart"></i> <span class="like-count">42</span>
+          </div>
+          <div class="stats-item disabled">
+            <i class="fas fa-comment"></i> 8
+          </div>
+          <div class="stats-item disabled">
+            <i class="fas fa-share"></i> 3
+          </div>
+        </div>
+      </div>
+
+      <!-- 动态卡片2 -->
+      <div class="post" data-category="photo" data-time="2023-06-16T09:15:00" data-likes="28">
+        <span class="new-badge">NEW</span>
+        <div class="post-header">
+          <a href="user.html" class="user-link">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="用户头像" class="avatar" />
+            <div class="user-info">
+              <div class="username">张伟</div>
+              <div class="post-time">30分钟前 · 艺术学院</div>
+            </div>
+          </a>
+        </div>
+        <a href="post-detail.html" class="post-link">
+          <div class="post-content">
+            <p class="post-text">
+              今天在校园湖边拍到了超美的晚霞！分享给大家～ 📸
+              摄影真的是件让人快乐的事情，能够记录下这些美好的瞬间。有喜欢摄影的同学可以一起交流呀！
+            </p>
+            <div class="post-tags">
+              <span class="tag">#校园风光</span>
+              <span class="tag">#摄影作品</span>
+              <span class="tag">#晚霞</span>
+            </div>
+            <div class="post-images">
+              <img
+                src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                alt="晚霞" class="post-image" />
+            </div>
+          </div>
+        </a>
+        <div class="post-stats">
+          <div class="stats-item disabled">
+            <i class="fas fa-heart"></i> <span class="like-count">28</span>
+          </div>
+          <div class="stats-item disabled">
+            <i class="fas fa-comment"></i> 5
+          </div>
+          <div class="stats-item disabled">
+            <i class="fas fa-share"></i> 1
+          </div>
+        </div>
+      </div>
+
+      <!-- 动态卡片3 -->
+      <div class="post" data-category="food" data-time="2023-06-14T18:45:00" data-likes="56">
+        <div class="post-header">
+          <a href="user.html" class="user-link">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="用户头像" class="avatar" />
+            <div class="user-info">
+              <div class="username">王小雨</div>
+              <div class="post-time">5小时前 · 外国语学院</div>
+            </div>
+          </a>
+        </div>
+        <a href="post-detail.html" class="post-link">
+          <div class="post-content">
+            <p class="post-text">
+              强烈推荐三食堂新开的轻食窗口！健康又美味，特别适合控制饮食的同学们。我点了鸡胸肉沙拉和藜麦饭，食材新鲜，分量也很足。关键是价格实惠，学生证还能打折！
+            </p>
+            <div class="post-tags">
+              <span class="tag">#校园美食</span>
+              <span class="tag">#健康饮食</span>
+              <span class="tag">#食堂推荐</span>
+            </div>
+            <div class="post-images">
+              <img
+                src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="轻食沙拉" class="post-image" />
+              <img
+                src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="藜麦饭" class="post-image" />
+            </div>
+          </div>
+        </a>
+        <div class="post-stats">
+          <div class="stats-item disabled">
+            <i class="fas fa-heart"></i> <span class="like-count">56</span>
+          </div>
+          <div class="stats-item disabled">
+            <i class="fas fa-comment"></i> 12
+          </div>
+          <div class="stats-item disabled">
+            <i class="fas fa-share"></i> 7
+          </div>
+        </div>
+      </div>
+
+      <!-- 动态卡片4 -->
+      <div class="post" data-category="sports" data-time="2023-06-13T20:30:00" data-likes="65">
+        <div class="post-header">
+          <a href="user.html" class="user-link">
+            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="用户头像" class="avatar" />
+            <div class="user-info">
+              <div class="username">李强</div>
+              <div class="post-time">昨天 · 体育学院</div>
+            </div>
+          </a>
+        </div>
+        <a href="post-detail.html" class="post-link">
+          <div class="post-content">
+            <p class="post-text">
+              今天篮球比赛赢了！感谢队友们的精彩配合，特别是小王的绝杀三分球！🏀
+              下周六我们队将与校队进行友谊赛，欢迎大家前来观战加油！
+            </p>
+            <div class="post-tags">
+              <span class="tag">#篮球比赛</span>
+              <span class="tag">#校队</span>
+              <span class="tag">#运动健身</span>
+            </div>
+            <div class="post-images">
+              <img
+                src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="篮球比赛" class="post-image" />
+            </div>
+          </div>
+        </a>
+        <div class="post-stats">
+          <div class="stats-item disabled">
+            <i class="fas fa-heart"></i> <span class="like-count">65</span>
+          </div>
+          <div class="stats-item disabled">
+            <i class="fas fa-comment"></i> 15
+          </div>
+          <div class="stats-item disabled">
+            <i class="fas fa-share"></i> 9
+          </div>
+        </div>
+      </div>
+
+      <!-- 热门推荐区域 -->
+      <div class="featured">
+        <div class="section-header">
+          <h2 class="section-title">热门推荐</h2>
+        </div>
+
+        <div class="featured-posts">
+          <!-- 热门推荐1 -->
+          <div class="featured-post" data-post-id="3">
+            <img
+              src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+              alt="轻食沙拉" class="featured-image" />
+            <div class="featured-content">
+              <h4>
+                食堂轻食窗口推荐
+                <span class="hot-badge"><i class="fas fa-fire"></i> HOT</span>
+              </h4>
+              <p>三食堂新开轻食窗口，健康美味又实惠...</p>
+              <div class="post-stats">
+                <div class="stats-item disabled">
+                  <i class="fas fa-heart"></i> 56
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 热门推荐2 -->
+          <div class="featured-post" data-post-id="4">
+            <img
+              src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+              alt="篮球比赛" class="featured-image" />
+            <div class="featured-content">
+              <h4>
+                篮球友谊赛预告
+                <span class="hot-badge"><i class="fas fa-fire"></i> HOT</span>
+              </h4>
+              <p>下周六校队友谊赛，欢迎大家前来观战...</p>
+              <div class="post-stats">
+                <div class="stats-item disabled">
+                  <i class="fas fa-heart"></i> 65
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer>
+    <div class="copyright">
+      <p>
+        © 2025 校园生活交友平台 | 计算机与软件学院《基于Web的编程》课程大作业
+      </p>
+    </div>
+  </footer>
+
+  <!-- 主题切换按钮 -->
+  <button class="theme-toggle">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- 发布提示模态框 -->
+  <div class="modal" id="publish-modal">
+    <div class="modal-content">
+      <button class="close-modal">&times;</button>
+      <h2><i class="fas fa-exclamation-circle"></i> 需要登录</h2>
+      <p>发布内容需要先登录您的账号。如果您还没有账号，请先注册。</p>
+      <div class="modal-buttons">
+        <button class="modal-btn cancel-btn close-modal">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 切换最新/热门视图
+    document.querySelectorAll(".toggle-btn").forEach((button) => {
+      button.addEventListener("click", function () {
+        document.querySelectorAll(".toggle-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        this.classList.add("active");
+
+        // 根据按钮文本切换标题
+        if (this.dataset.sort === "likes") {
+          document.querySelector(".section-title").textContent = "热门动态";
+          sortPostsByLikes();
+        } else {
+          document.querySelector(".section-title").textContent = "最新动态";
+          sortPostsByTime();
+        }
+      });
+    });
+
+    // 分类筛选
+    document.querySelectorAll(".categories a").forEach((link) => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const category = this.dataset.category;
+        filterPostsByCategory(category);
+      });
+    });
+
+    // 发布页提示
+    document
+      .getElementById("publish-link")
+      .addEventListener("click", function (e) {
+        e.preventDefault();
+        document.getElementById("publish-modal").style.display = "flex";
+      });
+
+    // 关闭模态框
+    document.querySelectorAll(".close-modal").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        document.getElementById("publish-modal").style.display = "none";
+      });
+    });
+
+    // 主题切换
+    document
+      .querySelector(".theme-toggle")
+      .addEventListener("click", function () {
+        document.body.classList.toggle("night-mode");
+        const icon = this.querySelector("i");
+        if (document.body.classList.contains("night-mode")) {
+          icon.className = "fas fa-sun";
+        } else {
+          icon.className = "fas fa-moon";
+        }
+      });
+
+    // 热门推荐点击跳转
+    document.querySelectorAll(".featured-post").forEach((post) => {
+      post.addEventListener("click", function () {
+        const postId = this.dataset.postId;
+        alert(`跳转到动态详情页：动态ID ${postId}`);
+        // 实际应用中：window.location.href = `post-detail.html?id=${postId}`;
+      });
+    });
+
+    // 排序功能
+    function sortPostsByTime() {
+      const feed = document.querySelector(".feed");
+      const posts = Array.from(document.querySelectorAll(".post"));
+
+      posts.sort((a, b) => {
+        const timeA = new Date(a.dataset.time);
+        const timeB = new Date(b.dataset.time);
+        return timeB - timeA; // 最新在前
+      });
+
+      // 清空动态流（保留标题和切换按钮）
+      const sectionHeader = document.querySelector(".section-header");
+      const featured = document.querySelector(".featured");
+      feed.innerHTML = "";
+      feed.appendChild(sectionHeader);
+
+      // 重新添加排序后的动态
+      posts.forEach((post) => {
+        feed.appendChild(post);
+      });
+
+      // 添加回热门推荐区域
+      feed.appendChild(featured);
+    }
+
+    function sortPostsByLikes() {
+      const feed = document.querySelector(".feed");
+      const posts = Array.from(document.querySelectorAll(".post"));
+
+      posts.sort((a, b) => {
+        const likesA = parseInt(a.dataset.likes);
+        const likesB = parseInt(b.dataset.likes);
+        return likesB - likesA; // 点赞多的在前
+      });
+
+      // 清空动态流（保留标题和切换按钮）
+      const sectionHeader = document.querySelector(".section-header");
+      const featured = document.querySelector(".featured");
+      feed.innerHTML = "";
+      feed.appendChild(sectionHeader);
+
+      // 重新添加排序后的动态
+      posts.forEach((post) => {
+        feed.appendChild(post);
+      });
+
+      // 添加回热门推荐区域
+      feed.appendChild(featured);
+    }
+
+    // 分类筛选功能
+    function filterPostsByCategory(category) {
+      const posts = document.querySelectorAll(".post");
+
+      posts.forEach((post) => {
+        if (category === "all" || post.dataset.category === category) {
+          post.style.display = "block";
+        } else {
+          post.style.display = "none";
+        }
+      });
+    }
+
+    // 初始化排序
+    sortPostsByTime();
+  </script>
+</body>
+
+</html>

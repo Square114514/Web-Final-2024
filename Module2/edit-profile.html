@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>完善个人资料</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="#" class="skip-link" onclick="skip()">跳过</a>
+  <h2>完善你的个人资料</h2>
+  <form id="profileForm">
+    <input type="text" id="nickname" placeholder="昵称" />
+    <input type="text" id="avatar" placeholder="头像链接（可选）" />
+    <textarea id="bio" placeholder="个人简介（可选）"></textarea>
+    <input type="text" id="tags" placeholder="兴趣标签（用逗号分隔）" />
+    <button type="submit">保存并进入主页</button>
+  </form>
+  
+
+  <script>
+    const currentUser = localStorage.getItem("currentUser");
+    const users = JSON.parse(localStorage.getItem("users") || "{}");
+
+    if (!currentUser || !users[currentUser]) {
+      alert("请先登录");
+      window.location.href = "auth.html";
+    }
+
+    document.getElementById("profileForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const u = users[currentUser];
+      u.nickname = nickname.value.trim();
+      u.avatar = avatar.value.trim();
+      u.bio = bio.value;
+      u.tags = tags.value.split(",").map(t => t.trim()).filter(t => t);
+      localStorage.setItem("users", JSON.stringify(users));
+      window.location.href = "index.html";
+    });
+
+    function skip() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

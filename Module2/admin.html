@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>管理员界面</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 90%;
+      margin: 20px auto;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 10px;
+      text-align: center;
+    }
+    .banned {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center">管理员用户管理</h2>
+  <table id="userTable">
+    <thead>
+      <tr>
+        <th>学号</th>
+        <th>昵称</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div style="text-align:center">
+    <button onclick="logout()">退出管理员</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const current = localStorage.getItem("currentUser");
+    if (current !== "admin") {
+      alert("仅管理员可访问！");
+      window.location.href = "auth.html";
+    }
+
+    const users = getUsers();
+    const tbody = document.querySelector("#userTable tbody");
+
+    Object.keys(users).forEach(id => {
+      if (id === "admin") return; // 不显示自己
+
+      const user = users[id];
+      const tr = document.createElement("tr");
+
+      const statusText = user.status === "banned" ? "已封禁" : "正常";
+
+      tr.innerHTML = `
+        <td>${user.id}</td>
+        <td>${user.nickname}</td>
+        <td class="${user.status === "banned" ? "banned" : ""}">${statusText}</td>
+        <td>
+          <button onclick="toggleStatus('${id}')">
+            ${user.status === "banned" ? "解封" : "封禁"}
+          </button>
+          <button onclick="resetProfile('${id}')">重置资料</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    function toggleStatus(id) {
+      users[id].status = users[id].status === "banned" ? "active" : "banned";
+      saveUsers(users);
+      location.reload();
+    }
+
+    function resetProfile(id) {
+      users[id].bio = "";
+      users[id].tags = [];
+      saveUsers(users);
+      alert(`用户 ${id} 资料已重置`);
+      location.reload();
+    }
+
+    function logout() {
+      localStorage.removeItem("currentUser");
+      window.location.href = "auth.html";
+    }
+  </script>
+</body>
+</html>
