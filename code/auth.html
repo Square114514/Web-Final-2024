@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>注册 / 登录</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .auth-box {
+      max-width: 500px;
+      margin: 50px auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .auth-box input[type="text"],
+    .auth-box input[type="password"],
+    select {
+      margin-top: 8px;
+      width: 100%;
+      padding: 8px;
+    }
+
+    .auth-box label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .auth-actions {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .auth-toggle {
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .small-text {
+      font-size: 0.85rem;
+      color: gray;
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <span id="logo">📚 夏季罢了</span>
+    <div id="navContent">
+      <a href="index.html">首页</a>
+      <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+      <a href="#" onclick="logout()">退出</a>
+    </div>
+  </nav>
+
+  <div class="auth-box" id="authBox">
+    <h2 id="authTitle">登录</h2>
+
+    <div id="loginForm">
+      <label>学号</label><input id="loginId" type="text" placeholder="请输入学号" />
+      <label>密码</label><input id="loginPwd" type="password" placeholder="请输入密码" />
+      <input type="checkbox" id="showPwd" /> 显示密码
+      <input type="checkbox" id="rememberMe" /> 记住我
+      <div class="small-text"><a href="#" onclick="alert('请联系管理员重置密码')">忘记密码？</a></div>
+
+      <div class="auth-actions">
+        <button onclick="login()">登录</button>
+      </div>
+      <div class="auth-toggle" onclick="toggleForm()">没有账号？注册</div>
+    </div>
+
+    <div id="registerForm" style="display: none;">
+      <label>学号</label><input id="regId" type="text" />
+      <label>密码</label><input id="regPwd" type="password" />
+      <label>确认密码</label><input id="regPwd2" type="password" />
+      <label>昵称</label><input id="regName" type="text" />
+      <label>头像</label><input id="regAvatarUpload" type="file" accept="image/*" />
+      <small>或输入头像链接</small><input id="regAvatar" type="url" placeholder="可选，粘贴图片链接" />
+      <div id="avatarPreview" style="width:100px;height:100px;margin-top:10px;border-radius:50%;overflow:hidden;"></div>
+      <label>兴趣标签（用空格分隔）</label><input id="regTags" type="text" />
+      <label>个人简介</label><input id="regIntro" type="text" />
+      <div class="auth-actions">
+        <button onclick="register()">注册</button>
+      </div>
+      <div class="auth-toggle" onclick="toggleForm()">已有账号？登录</div>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+    const authTitle = document.getElementById("authTitle");
+
+    function toggleForm() {
+      const showLogin = loginForm.style.display === "none";
+      loginForm.style.display = showLogin ? "block" : "none";
+      registerForm.style.display = showLogin ? "none" : "block";
+      authTitle.innerText = showLogin ? "登录" : "注册";
+    }
+
+    document.getElementById("showPwd").addEventListener("change", function () {
+      const pwd = document.getElementById("loginPwd");
+      pwd.type = this.checked ? "text" : "password";
+    });
+
+    function register() {
+      const id = regId.value.trim();
+      const pwd = regPwd.value;
+      const pwd2 = regPwd2.value;
+      if (!/^\d{6,20}$/.test(id)) return alert("学号应为6位以上数字");
+      if (pwd.length < 4) return alert("密码太短");
+      if (pwd !== pwd2) return alert("两次密码不一致");
+
+      const users = getUsers();
+      if (users[id]) return alert("该学号已注册");
+
+      users[id] = {
+        id,
+        password: pwd,
+        name: regName.value.trim() || `用户${id}`,
+        avatar: regAvatar.value.trim(),
+        tags: regTags.value.trim().split(/\s+/),
+        intro: regIntro.value.trim(),
+        banned: false,
+        lastLogin: new Date().toISOString(),
+        visitCount: 0,
+      };
+
+      saveUsers(users);
+      alert("注册成功！");
+      toggleForm();
+    }
+
+    function login() {
+      const id = loginId.value.trim();
+      const pwd = loginPwd.value;
+      const users = getUsers();
+      if (!users[id]) return alert("用户不存在");
+      if (users[id].banned) return alert("账号已被封禁");
+      if (users[id].password !== pwd) return alert("密码错误");
+
+      users[id].lastLogin = new Date().toISOString();
+      users[id].visitCount = (users[id].visitCount || 0) + 1;
+      saveUsers(users);
+
+      if (rememberMe.checked) localStorage.setItem("rememberUser", id);
+      localStorage.setItem("currentUser", id);
+      alert("登录成功！");
+      location.href = "index.html";
+    }// 添加头像预览功能
+    document.getElementById("regAvatarUpload").addEventListener("change", function (e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById("avatarPreview").innerHTML =
+          `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
+        document.getElementById("regAvatar").value = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
+
+  <footer>
+    <p>Web编程大作业——<strong>你说得队</strong><br />陈&nbsp &nbsp睿 - 2023150070 &nbsp 李冠霆 - 2023150135<br />何隽烨 - 2023150134
+      &nbsp 陈思宇 - 2023150048
+    </p>
+  </footer>
+</body>
+
+</html>
