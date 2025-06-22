@@ -1,0 +1,1423 @@
+<!DocType html>
+<html>
+    <head>
+        <style type="text/css">
+            .header{
+                height:40px;
+                background-color: #333;
+                align-items: center;
+                display: flex;
+            }
+            .container{
+                display:flex;
+                height:calc(100vh - 40px);
+            }
+            .left{
+                display:flex;
+                width:140px;
+                background: #333;
+            }
+            .center{
+                display:block;
+                width:100%;
+                background-color:white;
+            }
+            .right{
+                display: none;
+                width:40px;
+                background-color: grey;
+            }
+            ul{
+                list-style: none;
+            }
+            .touxiang{
+                padding: 10px;
+                width:40px;
+                height: 40px;
+                border-radius: 50%;
+            }
+            .user-info{
+                display: flex;
+            }
+            .background-wrap {
+                position: relative;
+                width: 100%;
+                height: 300px;
+
+                background-image: url('background-page.jpg');
+                background-size: auto;         
+                background-position: center;   
+                background-repeat: no-repeat;  
+            }
+            .background-page{
+                width:100%;
+                height:100%;
+            }
+            .wodetouxiang{
+                width:100px;
+                border-style: double;
+            }
+            .wodename{
+                color:white;
+                font-size: large;
+                position:relative;
+                top: 50px;
+                margin-left: 10px;
+            }
+            .wode-info{
+                display: flex;
+                position:absolute;
+                left: 300px;
+                bottom:-20px;
+                align-items:flex-start;
+            }
+            .pengyou-daohang{
+                position: relative;
+                top:50px;
+                overflow-x:hidden ;
+                white-space: nowrap;
+                margin-left: -20px;
+            }
+            .pengyou-daohang ul{
+                display:flex;
+                gap:30px;
+            }
+            .daohang ul{
+                gap:30px;
+            }
+            .fabu{
+                display:flex;
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
+            .fangwenjilu img{
+                border-radius: 10%;
+                width:70px;
+                height: 70px;
+            }
+            .xuanzhong{
+                font-weight: bolder;
+            }
+            .weixuanzhong{
+                color:blue;
+            }
+            .weixuanzhong:hover{
+                text-decoration: underline;
+            }
+            .fujian img{
+                width:20px;
+                height: 20px;
+                cursor: pointer;
+            }
+            .fabupic1{
+                width:390px;
+                height:390px;
+            }
+            .fabupic2{
+                width: 130px;
+                height:130px;
+                object-fit: cover;
+            }
+            .fabupic3{
+                width:130px;
+                height: 130px;
+                object-fit: cover;
+            }
+            .hudong img{
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+            }
+            .comment-teshu img{
+                width:20px;
+                height: 20px;
+                cursor: pointer;
+            }
+            .pengyou-daohang ul li{
+                cursor: pointer;
+            }
+            .pengyou-daohang ul li:hover{
+                text-decoration: underline;
+            }
+            .daohang ul li:hover{
+                text-decoration: underline;
+            }
+            .daohang ul li{
+                cursor: pointer;
+            }
+            .user-comment{
+                padding:0;
+                margin: 0;
+                background-color:white;
+            }
+            .comment-xianshi{
+                display: flex;
+                align-items: center;             
+            }
+            .user-comment-touxiang{
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+            }
+            .dongtai{
+                background-color: white;
+            }
+            .user-comment-id{
+                color:#0078ff;
+            }
+            .user-comment-time{
+                font-size: small;
+                color: #999999;
+            }
+            .time{
+                color:#999999;
+            }
+            .fabu-pic{
+                width: 400px;
+            }
+            .comment-comment-button{
+                cursor: pointer;
+            }
+            .daohang-touxiang{
+                border-radius: 50%;
+            }
+            .gongju{
+                height: 36px;
+                width: 36px;
+            }
+            .gongjumokuai{
+                margin-left: auto
+            }
+            .gongjumokuai ul li{
+                color:white;
+            }
+            .gongju{
+                width: 18px;
+                height: 18px;
+            }
+            .gongju-name{
+                display: inline-flex;
+            }
+            .header-right{
+                margin-left: auto;
+                margin-right: 50px;
+                display: flex;
+                align-items: center;
+                gap:10px;
+                position: relative;
+            }
+            .sixinpage,.fensipage{
+                display:none;
+                position:absolute;
+                flex-direction: column;
+                width: 300px;
+                height:400px;
+                top:48px;
+                right:8px;
+                background-color:#333;
+                z-index: 1000;
+                gap:15px
+            }
+            .sixin-img,.fensipage-img{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+            .sixin-id,.fensipage-id{
+                color:white;
+            }
+            .sixin-module,.fensi-module{
+                display: flex;
+                border-color: black;
+            }
+            .guanzhupage{
+                display:none;
+                position:absolute;
+                flex-direction: column;
+                width: 300px;
+                height:400px;
+                top:48px;
+                right:8px;
+                background-color:#333;
+                z-index: 1000;
+                gap:15px
+            }
+            .guanzhu-img{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+            .guanzhu-id{
+                color:white;
+            }
+            .guanzhu-module{
+                display: flex;
+                border-color: black;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .guanzhu-button{
+                width: 30px;
+                height: 30px;
+                margin-right: 30px;
+            }
+            .guanzhu-left{
+                display: flex;
+            }
+            .userpage{
+                display:none;
+                position:absolute;
+                flex-direction: column;
+                width: 300px;
+                height:400px;
+                top:48px;
+                right:8px;
+                background-color:#333;
+                z-index: 1000;
+                gap:15px
+            }
+            .userpage-xinxi{
+                display: flex;
+                gap:10px
+            }   
+            .userpage-img{
+                width:50px;
+                height: 50px;
+                border-radius: 50%;
+            }   
+            .guanzhushu:hover,.fensishu:hover{
+                color: #999999;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <div class="header-right">
+                <div class="gongjumokuai">
+                    <ul style="display: flex;gap:10px">
+                        <li>
+                            <span class="gongju-name">私信
+                                <img src="sixin.png" class="gongju">
+                            </span>
+                        </li>
+                        <li>
+                            <span class="gongju-name">关注
+                                <img src="guanzhu.png" class="gongju">
+                            </span>
+                        </li>
+                        <li>
+                            <span class="gongju-name">粉丝
+                                <img src="fensi.png" class="gongju">
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <img src="touxiang.jpg" width="36px" height="36px" class="daohang-touxiang">
+            </div>
+            <div class="sixinpage">
+                <div class="sixin-module">
+                    <img src="yjah.jpg" class="sixin-img">
+                    <span class="sixin-id">养鸡爱好</span>
+                </div>
+                <div class="sixin-module">
+                    <img src="yzh.jpg" class="sixin-img">
+                    <span class="sixin-id">旧梦多故人</span>
+                </div>
+                <div class="sixin-module">
+                    <img src="xio.jpg" class="sixin-img">
+                    <span class="sixin-id">xio</span>
+                </div>
+                <div class="sixin-module">
+                    <img src="ly.jpg" class="sixin-img">
+                    <span class="sixin-id">林允</span>
+                </div>
+            </div>
+            <div class="guanzhupage">
+                <div class="guanzhu-module">
+                    <div class="guanzhu-left">
+                        <img src="xio.jpg" class="guanzhu-img">
+                        <span class="guanzhu-id">xio</span>
+                    </div>
+                    <img src="guanzhu1.png" class="guanzhu-button">
+                </div>
+                <div class="guanzhu-module">
+                    <div class="guanzhu-left">
+                        <img src="yjah.jpg" class="guanzhu-img">
+                        <span class="guanzhu-id">养鸡爱好</span>
+                    </div>
+                    <img src="guanzhu1.png" class="guanzhu-button">
+                </div>
+                <div class="guanzhu-module">
+                    <div class="guanzhu-left">
+                        <img src="koulao.jpg" class="guanzhu-img">
+                        <span class="guanzhu-id">扣老</span>
+                    </div>
+                    <img src="guanzhu1.png" class="guanzhu-button">
+                </div>
+                <div class="guanzhu-module">
+                    <div class="guanzhu-left">
+                        <img src="haige.jpg" class="guanzhu-img">
+                        <span class="guanzhu-id">他们叫我死鬼</span>
+                    </div>
+                    <img src="guanzhu1.png" class="guanzhu-button">
+                </div>
+                <div class="guanzhu-module">
+                    <div class="guanzhu-left">
+                        <img src="yx.jpg" class="guanzhu-img">
+                        <span class="guanzhu-id">ystand</span>
+                    </div>
+                    <img src="guanzhu1.png" class="guanzhu-button">
+                </div>
+                <div class="guanzhu-module">
+                    <div class="guanzhu-left">
+                        <img src="xiaonima.jpg" class="guanzhu-img">
+                        <span class="guanzhu-id">小泥马</span>
+                    </div>
+                    <img src="guanzhu1.png" class="guanzhu-button">
+                </div>
+            </div>
+            <div class="userpage">
+                <div class='userpage-xinxi'>
+                    <img src="touxiang.jpg" class="userpage-img">
+                    <div>
+                        <span style="color: white;">愣头小青年</span>
+                        <span style="display: block;margin-top: 7px;color:white"><span class="guanzhushu">关注数:6</span><span>&nbsp;|&nbsp;</span><span class="fensishu">粉丝数:6</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="fensipage">
+                <div class="fensi-module">
+                    <img src="yidashi.jpg" class="fensipage-img">
+                    <span class="fensipage-id">易大师</span>
+                </div>
+                <div class="fensi-module">
+                    <img src="xiaonima.jpg" class="fensipage-img">
+                    <span class="fensipage-id">小泥马</span>
+                </div>
+                <div class="fensi-module">
+                    <img src="cg.jpg" class="fensipage-img">
+                    <span class="fensipage-id">炒个</span>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <div class="left">
+                <ul>
+                    <li class="jingxuan">精选</li>
+                    <li class="tuijian">推荐</li>
+                    <hr/>
+                    <li class="guanzhu">关注</li>
+                    <li class="pengyou">朋友</li>
+                    <li class="wode">我的</li>
+                    <hr/>
+                    <li class="zhibo">直播</li>
+                </ul>
+            </div>
+            <div class="center">
+                <div class="pengyou_page" style="display:none;">
+                    <div class="background-wrap">
+                        <div class="wode-info">
+                            <img src="touxiang.jpg" class="wodetouxiang">
+                            <div>
+                                <span class="wodename">愣头小青年</span>
+                                <div class="pengyou-daohang">
+                                    <ul>
+                                        <li class="zhuye">主页</li>
+                                        <li>日志</li>
+                                        <li>相册</li>
+                                        <li>留言板</li>
+                                        <li>说说</li>
+                                        <li>音乐</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height:40px;"></div>
+                    <div class="background" style="background-color:#f0f0f0;width:100%;height: 100%;display: flex;">
+                        <div style="flex:0 0 20%;"></div>
+                        
+                        <div style="flex:0 0 60%;display: flex;flex-direction: row;gap:20px;background-color: #f0f0f0;">
+                            <div class="daohang" style="background-color: white;">
+                                <ul style="flex-direction: column;gap:20px;;display: flex;width: 100px;">
+                                    <li class="haoyoudongtai">好友动态</li>
+                                    <li>@我的</li>
+                                    <li>特别关心</li>
+                                </ul>
+                            </div>
+                            <div class="zhongjian" style="display: flex;flex-direction: column;gap:20px">
+                                <div class="fabu">
+                                    <textarea style="width:400px;height: 50px;box-sizing: border-box;"></textarea>
+                                    <img src="xiangji.png" style="height:50px;width: 35px;">
+                                    <div class="fujian" style="background-color: white;width: 435px;align-items: center;justify-content: space-between;display: flex;">
+                                        <div style="display: flex;gap: 5px;">
+                                            <img src="emoji.png" class="emoji-button">
+                                            <img src="aite.png">
+                                        </div>
+                                        <button class="fabu-button" style="cursor: pointer;">发布</button>
+                                    </div>
+                                    <div style="display: none;background-color: white;" class="fabu-emoji">
+                                        <span style="cursor:pointer; font-size: 24px;">😀</span>
+                                        <span style="cursor:pointer; font-size: 24px;">😂</span>
+                                        <span style="cursor:pointer; font-size: 24px;">😍</span>
+                                        <span style="cursor:pointer; font-size: 24px;">👍</span>
+                                        <span style="cursor:pointer; font-size: 24px;">🎉</span>
+                                        <span style="cursor:pointer; font-size: 24px;">😎</span>
+                                    </div>
+                                </div>
+
+                                <div style="display: none;flex:1;background-color: #f0f0f0;gap: 20px;flex-direction: column;" class="haoyoudongtai-page">
+                                    <div class="dongtai dongtai-wo">
+                                        <div class="user-info">
+                                            <img src="touxiang.jpg" class="touxiang">
+                                            <div style="padding-top: 10px;padding-left: 5px;">
+                                                <span>愣头小青年</span>
+                                                <span style="display: block;" class="time"></span>
+                                            </div>
+                                        </div>
+                                        <div style="padding: 10px;">
+                                            <img class="fabupic1" src="Betboom.jpg">
+                                        </div>
+                                        <div style="display: flex;gap:20px;justify-content: flex-end;padding-right: 20px;" class="hudong">
+                                            <img src="dianzan1.png" class="dianzan">
+                                            <img src="pinglun.png" class="pinglun">
+                                            <img src="zhuanfa.png" class="zhuanfa">
+                                        </div>
+                                        <div class="dianzanren" style="display: flex;align-items: center;">
+                                            <img src="dianzan2.png" style="width: 20px;height: 20px;">
+                                            <span class="dianzan-list"></span>
+                                        </div>
+                                        <div>
+                                            <textarea class="dongtai-comment" style="width: 400px;"></textarea>
+                                            <div class="comment" style="display: none;justify-content: space-between;align-items: flex-end;">
+                                                <div style="display:flex;gap:10px" class="comment-teshu">
+                                                    <img src="emoji.png" class="comment-emoji">
+                                                    <img src="aite.png" class="comment-aite">
+                                                </div>
+                                                <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                            </div>
+                                            <div style="display: none;background-color: white;" class="commentemoji">
+                                                <span style="cursor:pointer; font-size: 24px;">😀</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😂</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😍</span>
+                                                <span style="cursor:pointer; font-size: 24px;">👍</span>
+                                                <span style="cursor:pointer; font-size: 24px;">🎉</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😎</span>
+                                            </div>
+                                            <div class="comment-list">
+                                                <div class="user-comment">
+                                                     <div class="comment-xianshi">
+                                                        <img src="yzh.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>旧梦多故人</span>
+                                                            <span>:</span>
+                                                            <span user-word>donk666</span>
+                                                            <span style="display: block;" class="user-comment-time first-time">
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dongtai dongtai-yjah">
+                                        <div class="user-info">
+                                            <img src="yjah.jpg" class="touxiang">
+                                            <div style="padding-top: 10px;padding-left: 5px;">
+                                                <span>养鸡爱好</span>
+                                                <span style="display: block;" class="time">2025年6月19日 19:06:32</span>
+                                            </div>
+                                        </div>
+                                        <div style="padding: 10px;" class="fabu-word">
+                                            如果你的高中同学是小学生
+                                        </div>
+                                        <div style="padding: 10px;" class="fabu-pic">
+                                            <img class="fabupic2" src="yangjidongtai1.jpg">
+                                            <img class="fabupic2" src="yangjidongtai2.jpg">
+                                        </div>
+                                        <div style="display: flex;gap:20px;justify-content: flex-end;padding-right: 20px;" class="hudong">
+                                            <img src="dianzan1.png" class="dianzan">
+                                            <img src="pinglun.png" class="pinglun">
+                                            <img src="zhuanfa.png" class="zhuanfa">
+                                        </div>
+                                        <div class="dianzanren" style="display: flex;align-items: center;">
+                                            <img src="dianzan2.png" style="width: 20px;height: 20px;">
+                                            <span class="dianzan-list">小泥马，xio，扣老，他们叫我死鬼，易大师</span>
+                                        </div>
+                                        <div>
+                                            <textarea class="dongtai-comment" style="width: 400px;"></textarea>
+                                            <div class="comment" style="display: none;justify-content: space-between;align-items: flex-end;">
+                                                <div style="display:flex;gap:10px" class="comment-teshu">
+                                                    <img src="emoji.png" class="comment-emoji">
+                                                    <img src="aite.png" class="comment-aite">
+                                                </div>
+                                                <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                            </div>
+                                            <div style="display: none;background-color: white;" class="commentemoji">
+                                                <span style="cursor:pointer; font-size: 24px;">😀</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😂</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😍</span>
+                                                <span style="cursor:pointer; font-size: 24px;">👍</span>
+                                                <span style="cursor:pointer; font-size: 24px;">🎉</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😎</span>
+                                            </div>
+                                            <div class="comment-list">
+                                                <div class="user-comment">
+                                                    <div class="comment-xianshi">
+                                                        <img src="xiaonima.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>小泥马</span>
+                                                            <span>:</span>
+                                                            <span user-word>出来玩记得穿</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>2025年6月19日 19:45:21</span>
+                                                                <img src="pinglun.png" width="15px" class='comment-comment-button'>
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="user-comment">
+                                                    <div class="comment-xianshi">
+                                                        <img src="haige.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>他们叫我死鬼</span>
+                                                            <span>:</span>
+                                                            <span user-word>明天真得穿出来</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>2025年6月19日 19:47:01</span>
+                                                                <img src="pinglun.png" width="15px" class='comment-comment-button'>
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="user-comment">
+                                                    <div class="comment-xianshi">
+                                                        <img src="yidashi.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>易大师</span>
+                                                            <span>:</span>
+                                                            <span user-word>大国，巅峰第一</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>2025年6月19日 19:49:57</span>
+                                                                <img src="pinglun.png" width="15px" class='comment-comment-button'>
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dongtai dongtai-zrf">
+                                        <div class="user-info">
+                                            <img src="zrf.jpg" class="touxiang">
+                                            <div style="padding-top: 10px;padding-left: 5px;">
+                                                <span>Neko</span>
+                                                <span style="display: block;" class="time">2025年6月18日 15:18:25</span>
+                                            </div>
+                                        </div>
+                                        <div style="padding: 10px;" class="fabu-word">
+                                        </div>
+                                        <div style="padding: 10px;" class="fabu-pic">
+                                            <img class="fabupic3" src="zrfdongtai1.jpg">
+                                            <img class="fabupic3" src="zrfdongtai2.jpg">
+                                            <img class="fabupic3" src="zrfdongtai3.jpg">
+                                        </div>
+                                        <div style="display: flex;gap:20px;justify-content: flex-end;padding-right: 20px;" class="hudong">
+                                            <img src="dianzan1.png" class="dianzan">
+                                            <img src="pinglun.png" class="pinglun">
+                                            <img src="zhuanfa.png" class="zhuanfa">
+                                        </div>
+                                        <div class="dianzanren" style="display: flex;align-items: center;">
+                                            <img src="dianzan2.png" style="width: 20px;height: 20px;">
+                                            <span class="dianzan-list">骡子肥，xio，他叫我死鬼，炒个，ystand</span>
+                                        </div>
+                                        <div>
+                                            <textarea class="dongtai-comment" style="width: 400px;"></textarea>
+                                            <div class="comment" style="display: none;justify-content: space-between;align-items: flex-end;">
+                                                <div style="display:flex;gap:10px" class="comment-teshu">
+                                                    <img src="emoji.png" class="comment-emoji">
+                                                    <img src="aite.png" class="comment-aite">
+                                                </div>
+                                                <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                            </div>
+                                            <div style="display: none;background-color: white;" class="commentemoji">
+                                                <span style="cursor:pointer; font-size: 24px;">😀</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😂</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😍</span>
+                                                <span style="cursor:pointer; font-size: 24px;">👍</span>
+                                                <span style="cursor:pointer; font-size: 24px;">🎉</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😎</span>
+                                            </div>
+                                            <div class="comment-list">
+                                                <div class="user-comment">
+                                                    <div class="comment-xianshi">
+                                                        <img src="lzf.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>骡子肥</span>
+                                                            <span>:</span>
+                                                            <span user-word>？</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>2025年6月18日 15:54:38</span>
+                                                                <img src="pinglun.png" width="15px" class='comment-comment-button'>
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="user-comment">
+                                                    <div class="comment-xianshi">
+                                                        <img src="haige.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>他们叫我死鬼</span>
+                                                            <span>:</span>
+                                                            <span user-word>？</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>2025年6月18日 16:01:32</span>
+                                                                <img src="pinglun.png" width="15px" class='comment-comment-button'>
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="user-comment">
+                                                    <div class="comment-xianshi">
+                                                        <img src="yx.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>ystand</span>
+                                                            <span>:</span>
+                                                            <span user-word>Neko</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>2025年6月18日 16:03:44</span>
+                                                                <img src="pinglun.png" width="15px" class='comment-comment-button'>
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="user-comment">
+                                                    <div class="comment-xianshi">
+                                                        <img src="cg.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>炒个</span>
+                                                            <span>:</span>
+                                                            <span user-word>？</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>2025年6月18日 16:12:21</span>
+                                                                <img src="pinglun.png" width="15px" class='comment-comment-button'>
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dongtai dongtai-koulao">
+                                        <div class="user-info">
+                                            <img src="koulao.jpg" class="touxiang">
+                                            <div style="padding-top: 10px;padding-left: 5px;">
+                                                <span>Neko</span>
+                                                <span style="display: block;" class="time">2025年6月17日 18:20:25</span>
+                                            </div>
+                                        </div>
+                                        <div style="padding: 10px;" class="fabu-word">
+                                        </div>
+                                        <div style="padding: 10px;" class="fabu-pic">
+                                            <img class="fabupic3" src="kl1.jpg">
+                                            <img class="fabupic3" src="kl2.jpg">
+                                            <img class="fabupic3" src="kl3.jpg">
+                                            <img class="fabupic3" src="kl4.jpg">
+                                            <img class="fabupic3" src="kl5.jpg">
+                                            <img class="fabupic3" src="kl6.jpg">
+                                            <img class="fabupic3" src="kl7.jpg">
+                                            <img class="fabupic3" src="kl8.jpg">
+                                            <img class="fabupic3" src="kl9.jpg">
+                                        </div>
+                                        <div style="display: flex;gap:20px;justify-content: flex-end;padding-right: 20px;" class="hudong">
+                                            <img src="dianzan1.png" class="dianzan">
+                                            <img src="pinglun.png" class="pinglun">
+                                            <img src="zhuanfa.png" class="zhuanfa">
+                                        </div>
+                                        <div class="dianzanren" style="display: flex;align-items: center;">
+                                            <img src="dianzan2.png" style="width: 20px;height: 20px;">
+                                            <span class="dianzan-list">骡子肥，xio，他叫我死鬼，炒个，ystand</span>
+                                        </div>
+                                        <div>
+                                            <textarea class="dongtai-comment" style="width: 400px;"></textarea>
+                                            <div class="comment" style="display: none;justify-content: space-between;align-items: flex-end;">
+                                                <div style="display:flex;gap:10px" class="comment-teshu">
+                                                    <img src="emoji.png" class="comment-emoji">
+                                                    <img src="aite.png" class="comment-aite">
+                                                </div>
+                                                <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                            </div>
+                                            <div style="display: none;background-color: white;" class="commentemoji">
+                                                <span style="cursor:pointer; font-size: 24px;">😀</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😂</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😍</span>
+                                                <span style="cursor:pointer; font-size: 24px;">👍</span>
+                                                <span style="cursor:pointer; font-size: 24px;">🎉</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😎</span>
+                                            </div>
+                                            <div class="comment-list">
+                                                <div class="user-comment">
+                                                    <div class="comment-xianshi">
+                                                        <img src="csy.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>csy</span>
+                                                            <span>:</span>
+                                                            <span user-word>哇是小能😍😍</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>2025年6月17日 18:30:16</span>
+                                                                <img src="pinglun.png" width="15px" class='comment-comment-button'>
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="user-comment">
+                                                    <div class="comment-xianshi">
+                                                        <img src="yjah.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>养鸡爱好</span>
+                                                            <span>:</span>
+                                                            <span user-word>哪个是你</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>2025年6月17日 18:31:02</span>
+                                                                <img src="pinglun.png" width="15px" class='comment-comment-button'>
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="user-comment">
+                                                    <div class="comment-xianshi">
+                                                        <img src="ly.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>林允</span>
+                                                            <span>回复</span>
+                                                            <span class="user-comment-id">养鸡爱好</span>
+                                                            <span>:</span>
+                                                            <span user-word>别说你还正在里面</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>2025年6月17日 18:38:38</span>
+                                                                <img src="pinglun.png" width="15px" class='comment-comment-button'>
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="user-comment">
+                                                    <div class="comment-xianshi">
+                                                        <img src="haige.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>他们叫我死鬼</span>
+                                                            <span>:</span>
+                                                            <span user-word>鹿</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>2025年6月17日 18:41:40</span>
+                                                                <img src="pinglun.png" width="15px" class='comment-comment-button'>
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            
+                            </div>
+                                
+                            <div class="fangwenjilu" style="width:300px;background-color: white;flex-shrink: 0;">
+                                <ul style="display: flex;padding:10px;gap: 10px;margin: 0;">
+                                    <li class="xuanzhong">谁看过我</li>
+                                    <li class="weixuanzhong">我看过谁</li>
+                                </ul>
+                                <div class="pic1" style="padding: 10px;">
+                                    <img src="csy.jpg" alt="dongtai-csy">
+                                    <img src="yzh.jpg" alt="dongtai-yzh">
+                                    <img src="cg.jpg" alt="dongtai-cg">
+                                    <img src="ly.jpg" alt="dongtai-ly">
+                                    <img src="xiaonima.jpg" alt="dongtai-xiaonima">
+                                    <img src="yjah.jpg" alt="dongtai-yjah">
+                                </div>
+                                <div class="pic2" style="display: none;padding: 10px">                              
+                                    <img src="yjah.jpg" alt="dongtai-yjah">
+                                    <img src="xio.jpg" alt="dongtai-xio">
+                                    <img src="yx.jpg" alt="dongtai-yx">
+                                    <img src="koulao.jpg" alt="dongtai-koulao">
+                                    <img src="yidashi.jpg" alt="dongtai-yidashi">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div style="flex:0 0 20%;"></div>
+                    </div>
+                </div>          
+            </div>
+            <div class="right">3</div>
+        </div>
+        <script>
+            var zhibo=document.querySelector('.zhibo');
+            var right=document.querySelector('.right');
+            zhibo.addEventListener('click',function(){
+                right.style.display="flex";                
+            })
+            var time=new Date();
+            var time_=document.querySelector('.time');
+            function riqi(time){
+                var year=time.getFullYear();
+                var month=time.getMonth()+1;
+                var day=time.getDate();
+                var hour=time.getHours();
+                var minute=time.getMinutes();
+                var second=time.getSeconds();
+                if(hour<10)hour='0'+hour;
+                if(minute<10)minute='0'+minute;
+                if(second<10)second='0'+second;
+                return year+'年'+month+'月'+day+'日 '+hour+":"+minute+":"+second;
+            }
+            var user_comment=document.querySelector('.user-comment')
+            time_.innerText=riqi(time);
+            time_=user_comment.querySelector('.first-time');
+            time_.innerHTML=`<span>${riqi(time)}</span>
+            <img src="pinglun.png" width="15px" class='comment-comment-button'>`;
+            var pengyou=document.querySelector('.pengyou');
+            var pengyou_page=document.querySelector('.pengyou_page');
+            pengyou.addEventListener('click',function(){
+                pengyou_page.style.display="block";
+            })
+            var haoyoudongtai=document.querySelector('.haoyoudongtai');
+            var haoyoudongtai_page=document.querySelector('.haoyoudongtai-page');
+            haoyoudongtai.addEventListener('click',function(){
+                haoyoudongtai_page.style.display='flex';
+            })
+            var fangwenjilu=document.querySelector('.fangwenjilu');
+            var pics=fangwenjilu.querySelectorAll('div');
+            var lis=fangwenjilu.querySelectorAll('li');
+            for(let i=0;i<lis.length;i++){
+                lis[i].addEventListener('click',function(){
+                    for(let j=0;j<pics.length;j++){
+                        pics[j].style.display='none';
+                        lis[j].className='weixuanzhong';
+                    }
+                    lis[i].className='xuanzhong';
+                    pics[i].style.display='block';
+                })
+            }
+            var fabu=document.querySelector('.fabu');
+            var emoji_button=fabu.querySelector('.emoji-button');
+            var fabu_emoji=fabu.querySelector('.fabu-emoji');
+            var fabu_textarea=fabu.querySelector('textarea');
+            emoji_button.addEventListener('mousedown',function(e){
+                fabu_emoji.style.display='block';
+                e.stopPropagation();
+                e.preventDefault();
+                fabu_textarea.focus();
+            })
+            var spans=fabu_emoji.querySelectorAll('span');
+            for(var i=0;i<spans.length;i++){
+                spans[i].addEventListener('click',function(){
+                    fabu_textarea.value+=this.innerText;
+                })
+            }
+            var dianzan_list1=['csy','xio','yzh','yjah'];
+            var dongtais=document.querySelectorAll('.dongtai');
+            var dianzan_list=dongtais[0].querySelector('.dianzan-list');
+            dianzan_list.innerText=dianzan_list1.join('，');
+            for(let i=0;i<dongtais.length;i++){
+                let dongtai_comment=dongtais[i].querySelector('.dongtai-comment');
+                let comment=dongtais[i].querySelector('.comment');
+                dongtai_comment.addEventListener('focus',function(){
+                    comment.style.display='flex';
+                })
+                dongtai_comment.addEventListener('blur',function(){
+                    comment.style.display='none';
+                })
+                let comment_emoji=dongtais[i].querySelector('.comment-emoji');
+                let emoji=dongtais[i].querySelector('.commentemoji')
+                comment_emoji.addEventListener('mousedown',function(e){
+                    emoji.style.display='block';
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dongtai_comment.focus();
+                })
+                document.addEventListener('mousedown',function(e){
+                    if (!emoji.contains(e.target) && !comment_emoji.contains(e.target)) {
+                    emoji.style.display = 'none';
+                    }
+                    if(!fabu_emoji.contains(e.target)){
+                        fabu_emoji.style.display='none';
+                    }
+                })
+                let spans=emoji.querySelectorAll('span');
+                for(let j=0;j<spans.length;j++){
+                    spans[j].addEventListener('mousedown',function(){
+                        dongtai_comment.value+=this.innerText;
+                        dongtai_comment.focus();
+                    })
+                }
+                let hudong=dongtais[i].querySelector('.hudong');
+                let dianzan=hudong.querySelector('.dianzan');
+                let dianzan_flag=0;
+                dianzan.addEventListener('click',function(){
+                    var dianzan_list=dongtais[i].querySelector('.dianzan-list');
+                    let str=dianzan_list.innerText;
+                    let dianzan_list_arr=str.split('，');
+                    if(dianzan_flag===0){
+                        this.src="dianzan2.png";
+                        dianzan_list_arr.push('愣头小青年');
+                        let dianzan_list=dongtais[i].querySelector('.dianzan-list');
+                        if(dianzan_list.innerText.trim()===""){
+                            dianzan_flag=1;
+                            dianzan_list.innerHTML='愣头小青年';
+                            return;
+                        }
+                        dianzan_list.innerText=dianzan_list_arr.join('，');
+                        dianzan_flag=1;
+                    }
+                    else{
+                        this.src="dianzan1.png";
+                        var index=dianzan_list_arr.indexOf('愣头小青年');
+                        dianzan_list_arr.splice(index,1);
+                        var dianzan_list=dongtais[i].querySelector('.dianzan-list');
+                        dianzan_list.innerText=dianzan_list_arr.join('，');
+                        dianzan_flag=0;
+                    }
+                })
+                let pinglun=hudong.querySelector('.pinglun');
+                pinglun.addEventListener('click',function(e){
+                    dongtai_comment.focus();
+                    e.stopPropagation();
+                    console.log(111);
+                })
+                let comment_button=dongtais[i].querySelector('.comment-button');
+                comment_button.addEventListener('mousedown',function(e){
+                    e.preventDefault();
+                    if(dongtai_comment.value.trim()!==""){
+                        var newpinglun=document.createElement('div');
+                        newpinglun.className='user-comment';
+                        var time=new Date();
+                        newpinglun.innerHTML=`<div class="comment-xianshi">
+                                                        <img src="touxiang.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>愣头小青年</span>
+                                                            <span>:</span>
+                                                            <span user-word>${dongtai_comment.value}</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>${riqi(time)}</span>
+                                                                <img src="pinglun.png" width="15px" class='comment-comment-button'>
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                    `;
+                        var comment_list=dongtais[i].querySelector('.comment-list');
+                        comment_list.appendChild(newpinglun);
+                        dongtai_comment.value=null;
+                    }
+                })
+                let user_comment=dongtais[i].querySelectorAll('.user-comment');
+                for(let j=0;j<user_comment.length;j++){
+                    let comment_comment_button=user_comment[j].querySelector('.comment-comment-button');
+                    comment_comment_button.addEventListener('click',function(e){
+                        var comment_all=document.querySelectorAll('.comment-yincang');
+                        for(var r=0;r<comment_all.length;r++){
+                            comment_all[r].style.display='none';
+                        }
+                        var comment_yincang=this.parentElement.parentElement.parentElement.nextElementSibling;
+                        comment_yincang.style.display='block';
+                    })
+                    let comment_comment_textarea=user_comment[j].querySelector('textarea');
+                    let comment_comment_fabiao=user_comment[j].querySelector('.comment-button');
+                    comment_comment_fabiao.addEventListener('click',function(){
+                        if(comment_comment_textarea.value.trim()!==""){
+                            var newhuifu=document.createElement('div');
+                            newhuifu.className='user-comment';
+                            var time=new Date();
+                            newhuifu.innerHTML=`<div class="comment-xianshi">
+                                                        <img src="touxiang.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class='user-comment-id'>愣头小青年</span>
+                                                            <span>回复</span>
+                                                            <span class='user-comment-id'>${this.parentElement.parentElement.previousElementSibling.querySelector('span').innerText}</span>
+                                                            <span>:</span>
+                                                            <span user-word>${comment_comment_textarea.value}</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>${riqi(time)}</span>
+                                                                <img src="pinglun.png" width="15px" class='comment-comment-button'>
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                    `;
+                            var btn=newhuifu.querySelector('.comment-comment-button');
+                            var comment_list=dongtais[i].querySelector('.comment-list');
+                            btn.addEventListener('click',function(){
+                                var tarea=newhuifu.querySelector('.comment-yincang');
+                                tarea.style.display='block';
+                            })
+                            comment_list.appendChild(newhuifu);
+                            comment_comment_textarea.value=null;
+                        }
+                        
+                    })
+                }
+            }
+            var fabu=document.querySelector('.fabu');
+            var fabu_textarea=fabu.querySelector('textarea');
+            var fabu_button=document.querySelector('.fabu-button');
+            fabu_button.addEventListener('click', function() {
+                if (fabu_textarea != null && fabu_textarea.value.trim() !== "") {
+                    var newdongtai = document.createElement('div');
+                    newdongtai.className = "dongtai dongtai-wo";
+                    newdongtai.innerHTML = `
+                        <div class="user-info">
+                            <img src="touxiang.jpg" class="touxiang">
+                            <div style="padding-top: 10px;padding-left: 5px;">
+                                <span>愣头小青年</span>
+                                <span style="display: block;" class="time">${riqi(new Date())}</span>
+                            </div>
+                        </div>
+                        <div style="padding: 10px;">${fabu_textarea.value}</div>
+                        <div style="display: flex;gap:20px;justify-content: flex-end;padding-right: 20px;" class="hudong">
+                                            <img src="dianzan1.png" class="dianzan">
+                                            <img src="pinglun.png" class="pinglun">
+                                            <img src="zhuanfa.png" class="zhuanfa">
+                                        </div>
+                                        <div class="dianzanren" style="display: flex;align-items: center;">
+                                            <img src="dianzan2.png" style="width: 20px;height: 20px;">
+                                            <span class="dianzan-list"></span>
+                                        </div>
+                                        <div>
+                                            <textarea class="dongtai-comment" style="width: 400px;"></textarea>
+                                            <div class="comment" style="display: none;justify-content: space-between;align-items: flex-end;">
+                                                <div style="display:flex;gap:10px" class="comment-teshu">
+                                                    <img src="emoji.png" class="comment-emoji">
+                                                    <img src="aite.png" class="comment-aite">
+                                                </div>
+                                                <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                            </div>
+                                            <div style="display: none;background-color: white;" class="emoji">
+                                                <span style="cursor:pointer; font-size: 24px;">😀</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😂</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😍</span>
+                                                <span style="cursor:pointer; font-size: 24px;">👍</span>
+                                                <span style="cursor:pointer; font-size: 24px;">🎉</span>
+                                                <span style="cursor:pointer; font-size: 24px;">😎</span>
+                                            </div>
+                                            <div class="comment-list">
+                                            </div>
+                                        </div>
+                    `;
+                    var dongtaiContainer = document.querySelector('.haoyoudongtai-page');
+                    dongtaiContainer.appendChild(newdongtai);
+                    fabu_textarea.value = '';
+
+
+                    var dongtai_comment=newdongtai.querySelector('.dongtai-comment');
+                    var comment=newdongtai.querySelector('.comment');
+                    dongtai_comment.addEventListener('focus',function(){
+                        comment.style.display='flex';
+                    })
+                    dongtai_comment.addEventListener('blur',function(){
+                        comment.style.display='none';
+                    })
+                    var comment_emoji=newdongtai.querySelector('.comment-emoji');
+                    var emoji=newdongtai.querySelector('.emoji')
+                    comment_emoji.addEventListener('mousedown',function(e){
+                        emoji.style.display='block';
+                        e.preventDefault();
+                    })
+                    var spans=emoji.querySelectorAll('span');
+                    for(var j=0;j<spans.length;j++){
+                        spans[j].addEventListener('click',function(){
+                            dongtai_comment.value+=this.innerText;
+                        })
+                    }
+                    var hudong=newdongtai.querySelector('.hudong');
+                    var dianzan=hudong.querySelector('.dianzan');
+                    var dianzan_flag=0;
+                    dianzan.addEventListener('click',function(){
+                        var dianzan_list=newdongtai.querySelector('.dianzan-list');
+                        var str=dianzan_list.innerText;
+                        var dianzan_list_arr=str.split('，');
+                        if(dianzan_flag===0){
+                            this.src="dianzan2.png";
+                            dianzan_list_arr.push('愣头小青年');
+                            var dianzan_list=newdongtai.querySelector('.dianzan-list');
+                            if(dianzan_list.innerText.trim()===""){
+                                dianzan_list.innerText='愣头小青年';
+                                dianzan_flag=1;
+                                return;
+                            }
+                            dianzan_list.innerText=dianzan_list_arr.join('，');
+                            dianzan_flag=1;
+                            console.log(dianzan_list_arr);
+                        }
+                        else{
+                            this.src="dianzan1.png";
+                            var index=dianzan_list_arr.indexOf('愣头小青年');
+                            dianzan_list_arr.splice(index,1);
+                            var dianzan_list=newdongtai.querySelector('.dianzan-list');
+                            dianzan_list.innerText=dianzan_list_arr.join('，');
+                            dianzan_flag=0;
+                            console.log(dianzan_list_arr);
+                        }
+                    })
+                    var pinglun=newdongtai.querySelector('.pinglun');
+                    pinglun.addEventListener('click',function(){
+                        dongtai_comment.focus();
+                    })
+
+                    var comment_button=newdongtai.querySelector('.comment-button');
+                    var comment_list=newdongtai.querySelector('.comment-list');
+                    comment_button.addEventListener('mousedown',function(e){
+                        e.preventDefault();
+                        if(dongtai_comment.value.trim()!==""){
+                            var newpinglun=document.createElement('div');
+                            newpinglun.className='user-comment';
+                            var time=new Date();
+                            newpinglun.innerHTML=`<div class="comment-xianshi">
+                                                        <img src="touxiang.jpg" class="user-comment-touxiang">
+                                                        <div style="padding-top: 10px;">
+                                                            <span class=user-comment-id>愣头小青年</span>
+                                                            <span>:</span>
+                                                            <span user-word>${dongtai_comment.value}</span>
+                                                            <span style="display: block;" class="user-comment-time"><span>${riqi(time)}</span>
+                                                                <img src="pinglun.png" width="15px">
+                                                            </span>                                                                                              
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class='comment-yincang'>
+                                                        <textarea style="width:400px;"></textarea>
+                                                        <div style="display: flex;justify-content: space-between;align-items: flex-end;">
+                                                            <div style="display:flex;gap:10px" class="comment-teshu">
+                                                                <img src="emoji.png" class="comment-emoji">
+                                                                <img src="aite.png" class="comment-aite">
+                                                            </div>
+                                                            <button class="comment-button" style="cursor: pointer;margin-right: 30px;">发表</button>
+                                                        </div>
+                                                    </div>
+                                                        `;
+                            comment_list.appendChild(newpinglun);
+                            dongtai_comment.value=null;
+                        }
+                    })
+
+
+                }
+            });
+            var gongju=document.querySelector('.gongjumokuai');
+            var gongjuli=gongju.querySelectorAll('li');
+            var sixinpage=document.querySelector('.sixinpage');
+            gongjuli[0].addEventListener('mouseenter',function(){
+                sixinpage.style.display='flex';
+            })
+            sixinpage.addEventListener('mouseleave',function(){
+                sixinpage.style.display='none';
+            })
+            var fensipage=document.querySelector('.fensipage');
+            gongjuli[2].addEventListener('mouseenter',function(){
+                fensipage.style.display='flex';
+            })
+            fensipage.addEventListener('mouseleave',function(){
+                fensipage.style.display='none';
+            })
+            var guanzhupage=document.querySelector('.guanzhupage');
+            gongjuli[1].addEventListener('mouseenter',function(){
+                guanzhupage.style.display='flex';
+            })
+            guanzhupage.addEventListener('mouseleave',function(){
+                guanzhupage.style.display='none';
+            })
+            var guanzhu_button=guanzhupage.querySelectorAll('.guanzhu-button');
+            for(let i=0;i<guanzhu_button.length;i++){
+                guanzhu_button[i].addEventListener('click',function(){
+                    if(this.src.includes('guanzhu1.png')){
+                        this.src='quguan.png';
+                    }
+                    else{
+                        this.src='guanzhu1.png';
+                    }
+                })
+            }
+            var userpage=document.querySelector('.userpage')
+            var daohang_touxiang=document.querySelector('.daohang-touxiang');
+            daohang_touxiang.addEventListener('mouseenter',function(){
+                userpage.style.display='flex';
+            })
+            userpage.addEventListener('mouseleave',function(){
+                userpage.style.display='none';
+            })
+            var fangwenjilu=document.querySelector('.fangwenjilu');
+            var imgs=fangwenjilu.querySelectorAll('img');
+            for(let i=0;i<imgs.length;i++){
+                imgs[i].addEventListener('click',function(){
+                    dongtais=document.querySelectorAll('.dongtai');
+                    for(let j=0;j<dongtais.length;j++){
+                        if(!dongtais[j].classList.contains(this.alt)){
+                            dongtais[j].style.display='none';
+                        }
+                        else{
+                            dongtais[j].style.display='block';
+                        }
+                    }
+                })
+            }
+            var zhuye=document.querySelector('.zhuye');
+            zhuye.addEventListener('click',function(){
+                dongtais=document.querySelectorAll('.dongtai');
+                for(let i=0;i<dongtais.length;i++){
+                    if(dongtais[i].classList.contains('dongtai-wo')){
+                        dongtais[i].style.display='block';
+                    }
+                    else{
+                        dongtais[i].style.display='none';
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
+
