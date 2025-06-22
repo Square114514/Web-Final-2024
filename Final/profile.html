@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>个人主页</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <nav>
+    <span id="logo">📚 夏季罢了</span>
+    <div id="navContent">
+      <a href="index.html">首页</a>
+      <a href="post.html">发动态</a>
+      <a id="navUserArea" href="auth.html">注册 / 登录</a>
+      <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+      <a href="#" onclick="logout()">退出</a>
+    </div>
+  </nav>
+
+
+  <main class="Card">
+    <h2>个人资料</h2>
+    <div id="userInfo"></div>
+    <h3>历史动态</h3>
+    <div id="userPosts"></div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script>
+    if (!currentUser) {
+      alert("未登录");
+      location.href = "auth.html";
+    }
+
+    const infoDiv = document.getElementById("userInfo");
+    infoDiv.innerHTML = `
+
+    <div style="display:flex;align-items:center;gap:20px;margin-bottom:20px;">
+      <div style="width:100px;height:100px;border-radius:50%;overflow:hidden;">
+        <img src="${currentUser.avatar || 'default-avatar.jpg'}" style="width:100%;height:100%;object-fit:cover;" id="avatarDisplay" />
+      </div>
+      <div>
+        <p><strong>学号：</strong>${currentUser.id}</p>
+        <p><strong>昵称：</strong><input id="nameEdit" value="${currentUser.name}" /></p>
+      </div>
+    </div>
+    <span><strong>头像：</strong></span>
+    <input type="file" id="avatarUpload" accept="image/*" />
+    <input id="avatarEdit" type="" value="${currentUser.avatar}" placeholder="或输入头像链接" /><p><strong>简介：</strong><input id="introEdit" value="${currentUser.intro}" /></p>
+    <p><strong>兴趣：</strong><input id="tagsEdit" value="${currentUser.tags.join(' ')}" /></p>
+    <button onclick="updateProfile()">保存修改</button>
+    <p style="color:gray;font-size:0.9rem;margin-top:10px;">最近登录：${new Date(currentUser.lastLogin).toLocaleString()}<br>访问量：${currentUser.visitCount}</p>
+  `;
+
+    function updateProfile() {
+      currentUser.name = nameEdit.value.trim();
+      currentUser.avatar = avatarEdit.value.trim();
+      currentUser.intro = introEdit.value.trim();
+      currentUser.tags = tagsEdit.value.trim().split(/\s+/);
+      const users = getUsers();
+      users[currentUser.id] = currentUser;
+      saveUsers(users);
+      alert("资料已更新！");
+      location.reload();
+    }
+
+    const allPosts = getAllPosts();
+    const myPosts = allPosts.filter(p => p.author.id === currentUser.id);
+    const userPostsDiv = document.getElementById("userPosts");
+
+    // 检查动态
+    if (myPosts.length === 0) {
+      userPostsDiv.innerHTML = `<p style="color:gray">暂无历史动态</p>`;
+    } else {
+      myPosts.forEach(post => {
+        userPostsDiv.innerHTML += `<p>${new Date(post.timestamp).toLocaleString()} - ${post.content}</p>`;
+      });
+    }
+
+    // 登出
+    function logout() {
+      localStorage.removeItem("currentUser");
+      location.href = "index.html";
+    }
+  </script>
+
+  <footer>
+    <p>Web编程大作业——<strong>你说得队</strong><br />陈&nbsp &nbsp睿 - 2023150070 &nbsp 李冠霆 - 2023150135<br />何隽烨 - 2023150134
+      &nbsp 陈思宇 - 2023150048
+    </p>
+  </footer>
+</body>
+
+</html>

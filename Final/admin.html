@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>管理员后台</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <nav>
+    <span id="logo">📚 管理后台</span>
+  </nav>
+
+  <main style="max-width:800px;margin:30px auto;padding:2rem;background:white;border-radius:10px;">
+    <h2>用户列表</h2>
+    <div id="userTable"></div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script>
+    if (localStorage.getItem("currentUser") !== "admin") {
+      alert("仅管理员可访问");
+      location.href = "index.html";
+    }
+
+    const users = getUsers();
+    const tableDiv = document.getElementById("userTable");
+
+    for (let id in users) {
+      const u = users[id];
+      tableDiv.innerHTML += `
+      <div style="border-bottom:1px solid #ccc;margin-bottom:1rem">
+        <p><strong>${u.name}</strong> (${id})</p>
+        <p>状态：${u.banned ? '封禁' : '正常'} | 登录：${new Date(u.lastLogin).toLocaleString()}</p>
+        <button onclick="ban('${id}')">${u.banned ? '解除封禁' : '封禁用户'}</button>
+        <button onclick="reset('${id}')">重置资料</button>
+      </div>
+    `;
+    }
+
+    function ban(id) {
+      users[id].banned = !users[id].banned;
+      saveUsers(users);
+      location.reload();
+    }
+
+    function reset(id) {
+      users[id].avatar = '';
+      users[id].intro = '';
+      users[id].tags = [];
+      saveUsers(users);
+      alert("资料已重置");
+      location.reload();
+    }
+  </script>
+
+  <footer>
+    <p>Web编程大作业——<strong>你说得队</strong><br />陈&nbsp &nbsp睿 - 2023150070 &nbsp 李冠霆 - 2023150135<br />何隽烨 - 2023150134
+      &nbsp 陈思宇 - 2023150048
+    </p>
+  </footer>
+</body>
+
+</html>
