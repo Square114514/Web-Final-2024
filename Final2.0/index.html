@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>首页</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /*顶部跑马灯*/
+    .marquee {
+      max-width: 1070px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 7px;
+      margin: 20px auto;
+      border-radius: 8px;
+      overflow: hidden;
+      white-space: nowrap;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .marqueeContent {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 20s linear infinite;
+    }
+
+    .marqueeContent span {
+      margin-right: 40px;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-120%);
+      }
+    }
+
+    /* === 主布局 === */
+    .mainLayout {
+      display: flex;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+      gap: 2rem;
+    }
+
+    /*首页动态*/
+    #postContainer {
+      width: 768px;
+    }
+
+    .feed {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .postCard {
+      background-color: white;
+      border-radius: 6px;
+      padding: 13px;
+      margin: 13px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .postCard:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    /*首页侧边栏*/
+    .categories {
+      list-style: none;
+    }
+
+    .categories li {
+      margin-bottom: 12px;
+      padding: 7px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .categories a {
+      text-decoration: none;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    .categories a:hover {
+      color: var(--primary);
+    }
+
+    .sidebar {
+      background: white;
+      flex: 1;
+      max-width: 230px;
+      min-width: 150px;
+      height: fit-content;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-left: 23px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .smalla {
+      padding-left: 10px;
+      text-decoration: none;
+      color: grey;
+      font-size: 0.9rem;
+    }
+
+    /* === 响应式：小屏改为上下布局 === */
+    @media (max-width: 768px) {
+      .mainLayout {
+        display: block;
+        flex-direction: column;
+      }
+
+      #postContainer {
+        width: 100%;
+        margin-right: px;
+      }
+
+      .sidebar {
+        max-width: 100%;
+        margin: 10px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <span id="logo">📚 夏季罢了 </span>
+    <div id="navContent">
+      <a href="index.html">首页</a>
+      <a href="post.html">发动态</a>
+      <a id="navUserArea" href="auth.html">注册 / 登录</a>
+      <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    </div>
+  </nav>
+
+  <div class="marquee">
+    <div class="marqueeContent">
+      <span>作业太多怎么办</span>
+      <span>8小时写8小时玩8小时睡</span>
+      <span>根本没有写不完的作业</span>
+      <span>我是美友姬</span>
+      <span>快来试试看吧</span>
+    </div>
+  </div>
+
+  <main class="mainLayout">
+    <div class="sidebar">
+      <h3><i class="fas fa-th-list"></i> 内容分类</h3>
+      <ul class="categories">
+        <li><a href="#" data-category="all">全部动态</a></li>
+        <li><a href="#" data-category="study">学习日常</a></li>
+        <li><a href="#" data-category="food">校园美食</a></li>
+        <li><a href="#" data-category="photo">摄影作品</a></li>
+        <li><a href="#" data-category="sports">运动健身</a></li>
+        <li><a href="#" data-category="music">音乐艺术</a></li>
+        <li><a href="#" data-category="fun">趣事分享</a></li>
+      </ul>
+
+      <h3 style="margin-top: 30px">
+        <i class="fas fa-hashtag"></i> 热门话题
+      </h3>
+      <div class="post-tags">
+        <span class="tag">#期末考试</span>
+        <span class="tag">#校园美食</span>
+        <span class="tag">#毕业季</span>
+        <span class="tag">#社团招新</span>
+        <span class="tag">#考研加油</span>
+        <span class="tag">#校园摄影</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="featured">
+        <div class="section-header">
+          <h2 class="section-title">热门推荐</h2>
+        </div>
+      </div>
+      <div class="section-header">
+        <h2 class="section-title">动态视图</h2>
+        <div class="view-toggle">
+          <button id="viewAllBtn">全站动态</button>
+          <button id="viewFollowBtn">关注动态</button>
+        </div>
+      </div>
+      <div id="postContainer">
+
+      </div>
+
+      <!--预留示例-->
+      <div class="postCard">
+        <p><strong><a class="userPage" href="user.html?id=114514">美丽旗舰店</a></strong></p>
+        <p style="font-size: small;color: grey;">1145/14/1 91:98:10</p>
+        <p>我是花花世界里限量版的花花蝴蝶，美女们只是比较豁出去比较敢一点<br>花蝴蝶的美的艳若没经过三审定艳，那些路人甲们凭什么发言惹人讨厌</p>
+        <div class="post-footer">
+          <button class="like-btn liked" data-id="1145141919810">130 赞</button>
+          <a class="smalla" href="detail.html?id=1145141919810">查看详情</a>
+          <a class="smalla" href="javascript:void(0);" class="toggleComment" data-id="1145141919810">评论</a>
+          <a class="smalla" href="#" onclick="sharePost('1145141919810')">转发</a>
+          <a class="smalla" href="#" onclick="alert('已收藏！')">已收藏</a>
+          <div id="commentBox-1145141919810" style="margin-top:10px; display:none;">
+            <textarea id="commentInput_1145141919810" style="resize: none;width:70%;margin-right:10px"
+              placeholder="写下你的评论吧"></textarea>
+            <button id="commentBtn_1145141919810" type="submit" data-id="1145141919810">发布</button>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/index.js"></script>
+  <script>
+    // 获取当前登录用户
+    const currentUser = localStorage.getItem("currentUser");
+    const users = JSON.parse(localStorage.getItem("users") || "{}");
+    const navMenu = document.getElementById("navMenu");
+
+    if (currentUser && users[currentUser]) { // 管理员跳转 admin 页面
+      if (currentUser === "admin") {
+        window.location.href = "admin.html";
+      } else { // 登录用户导航栏：个人主页 + 退出
+        navMenu.innerHTML = `
+        <li><a href="index.html">首页</a></li>
+        <li><a href="profile.html">个人主页</a></li>
+        <li><a href="#" onclick="logout()">退出登录</a></li>
+      `;
+      }
+    } else { // 未登录导航栏：登录 / 注册
+      navMenu.innerHTML = `
+      <li><a href="index.html">首页</a></li>
+      <li><a href="auth.html">登录 / 注册</a></li>
+    `;
+    }
+
+  </script>
+  <footer>
+    <p>Web编程大作业——<strong>你说得队</strong><br />陈&nbsp &nbsp睿 - 2023150070 &nbsp 李冠霆 - 2023150135<br />何隽烨 - 2023150134
+      &nbsp 陈思宇 - 2023150048
+    </p>
+  </footer>
+</body>
+
+</html>
+
+
+
+<!--s
+普通游客可访问的⻚⾯内容 
+// 1. 平台⾸⻚，包括⽹站名称 Logo、导航菜单、最新发布动态流等元素；
+// 2. 游客可浏览注册⽤户设置为公开的动态（⽆法评论与互动）；
+// 3. ⻚⾯整体视觉⻛格统⼀、布局清晰，交互流畅，具有⼀定美感和⽤户体验。
+// 4. 可选部分：⾸⻚根据系统内数据变化动态更新推荐内容，如点赞较多的动态⾃动更新为“热⻔推荐”；
+// 5. 可选部分：⾸⻚⽀持简洁动效提示新内容（如动态标记、跑⻢灯等）。
+
+ ⽤户系统模块 
+// 1. 学⽣可使⽤学号进⾏⾃主注册，注册流程有输⼊校验和异常提示；
+// 2. 注册过程中可以设置头像、昵称、个⼈简介、兴趣标签等；
+// 3. 登录流程完整，提供“记住我”“密码可⻅”“忘记密码”等交互，登录后可进⼊“个⼈主⻚”查看和编辑个⼈信息和历史动态；
+// 4. 系统管理员账号⽀持管理⽤户账号，包括“封禁⽤户”“重置资料”等操作；
+// 5. 可选部分：⽤户资料⻚可展示最近活跃时间、访问量、相册墙等个性化内容。
+
+ 动态发布与浏览模块 
+// 1. 登录⽤户可在“发布⻚”编写并发布图⽂动态（图⽚⽀持上传/链接）；
+// 2. 所有动态会展示在“⾸⻚”时间流中，⽀持点赞、评论、删除（仅本⼈）等基本操作；
+// 3. 动态详情⻚⽀持查看全⽂内容、点赞数、评论列表与时间戳；
+// 4. 可选部分：⽀持为动态添加话题标签（如“#学习⽇常”）、设置可⻅范围（公开/仅好友）等；
+// 5. 可选部分：⽀持编辑或撤回动态；评论区可使⽤动态表情或图⽚回复等。
+
+ 互动与社交模块 
+// 1. 注册⽤户可访问他⼈主⻚，浏览其公开动态；
+// 2. ⽀持“关注/取关”功能，主⻚展示粉丝/关注⼈数，主⻚展示“TA的动态”；
+// 3. ⾸⻚可切换“关注动态”与“全站动态”两种视图模式；
+// 4. 可选部分：⽀持“私信”（仅界⾯展示）、“转发”、“收藏”功能；
+// 5. 可选部分：⽀持主题切换（夜间模式）、设置隐私权限（动态仅⾃⼰可⻅等）。
+
+ 其他个性化模块（包括但不限于） 
+1. 根据⽤户浏览记录、兴趣标签，为⽤户推荐可能喜欢的动态或⽤户；
+2. ⽀持“⽤户群组”、“打卡签到”、“年度回顾”、“搜索功能”等互动设计。
+-->

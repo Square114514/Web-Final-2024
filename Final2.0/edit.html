@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>编辑动态</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <nav>
+    <span id="logo">📚 夏季罢了</span>
+    <div id="navContent">
+      <a href="index.html">首页</a>
+      <a href="profile.html">个人主页</a>
+    </div>
+  </nav>
+
+  <fieldset class="Card">
+    <legend>编辑动态</legend>
+    <textarea id="textContent" rows="6"></textarea><br>
+    <input id="tagInput" type="text" placeholder="#标签" />
+    <select id="visibilitySelect">
+      <option value="public">公开</option>
+      <option value="friend">仅好友</option>
+      <option value="private">私密</option>
+    </select><br><br>
+    <button id="saveBtn">保存修改</button>
+  </fieldset>
+
+  <script src="js/storage.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
+    let posts = getAllPosts();
+    const post = posts.find(p => p.id === id);
+    if (!post || post.author.id !== currentUser.id) location.href = "index.html";
+
+    document.getElementById("textContent").value = post.content;
+    document.getElementById("tagInput").value = post.tag;
+    document.getElementById("visibilitySelect").value = post.visibility;
+
+    // 保存修改
+    document.getElementById("saveBtn").onclick = () => {
+      post.content = document.getElementById("textContent").value.trim();
+      post.tag = document.getElementById("tagInput").value.trim();
+      post.visibility = document.getElementById("visibilitySelect").value;
+      updatePostById(post.id, () => post);
+      alert("修改成功！");
+      location.href = "index.html";
+    };
+  </script>
+
+  <footer>
+    <p>Web编程大作业——<strong>你说得队</strong><br />陈&nbsp &nbsp睿 - 2023150070 &nbsp 李冠霆 - 2023150135<br />何隽烨 - 2023150134
+      &nbsp 陈思宇 - 2023150048
+    </p>
+  </footer>
+</body>
+
+</html>
