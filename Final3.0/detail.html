@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>动态详情页</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .Card textarea {
+      width: 100%;
+      resize: none;
+    }
+
+    #commentHr {
+      margin: 0 -23px 13px -23px;
+      border: 1px solid #eee;
+    }
+
+    #commentTop {
+      font-size: 1.3rem;
+      padding-left: 10px;
+    }
+
+    img {
+      width: 150px;
+      height: 150px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <span id="logo">📚 夏季罢了</span>
+    <div id="navContent">
+      <a href="index.html">首页</a>
+      <a href="post.html">发动态</a>
+      <a id="navUserArea" href="auth.html">注册 / 登录</a>
+      <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    </div>
+  </nav>
+  <fieldset class="Card">
+    <legend>动态详情</legend>
+    <div id="postDetail"></div>
+    <div class="leftBtn"><button id="like">点赞</button></div>
+
+    <span id="commentTop">评论</span>
+    <hr id="commentHr">
+
+    <textarea id="newComment" rows="3" cols="40" placeholder=" 写下你的评论吧"></textarea><br>
+    <div class="leftBtn"><button id="commentBtn" type="submit">发布</button></div>
+    <div id="commentList"></div>
+  </fieldset>
+
+  <script src="js/storage.js"></script>
+  <script src="js/detail.js"></script>
+
+  <footer>
+    <p>Web编程大作业——<strong>你说得队</strong><br />陈&nbsp &nbsp睿 - 2023150070 &nbsp 李冠霆 - 2023150135<br />何隽烨 - 2023150134
+      &nbsp 陈思宇 - 2023150048
+    </p>
+  </footer>
+
+</body>
+
+</html>
+
+
+
+<!--3. 动态详情⻚⽀持查看全⽂内容、点赞数、评论列表与时间戳；-->0

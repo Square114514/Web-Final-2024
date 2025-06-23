@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>私信</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .message-container {
+      display: flex;
+      max-width: 800px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .conversation-list {
+      width: 250px;
+      border-right: 1px solid #eee;
+      height: 600px;
+      overflow-y: auto;
+    }
+
+    .conversation-item {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+
+    .conversation-item:hover {
+      background-color: #f5f5f5;
+    }
+
+    .conversation-item.active {
+      background-color: #e6f7ff;
+    }
+
+    .message-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+    }
+
+    .message-header {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      font-weight: bold;
+    }
+
+    .message-content {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: #f9f9f9;
+    }
+
+    .message-input {
+      padding: 15px;
+      border-top: 1px solid #eee;
+    }
+
+    .message-input textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: none;
+      margin-bottom: 10px;
+    }
+
+    .message-bubble {
+      margin-bottom: 15px;
+      max-width: 70%;
+    }
+
+    .message-bubble.sent {
+      margin-left: auto;
+      background-color: #e6f7ff;
+      padding: 10px 15px;
+      border-radius: 18px 18px 0 18px;
+    }
+
+    .message-bubble.received {
+      margin-right: auto;
+      background-color: #fff;
+      padding: 10px 15px;
+      border: 1px solid #eee;
+      border-radius: 18px 18px 18px 0;
+    }
+
+    .message-time {
+      font-size: 12px;
+      color: #999;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <span id="logo">? 夏季罢了 </span>
+    <div id="navContent">
+      <a href="index.html">首页</a>
+      <a href="post.html">发动态</a>
+      <a id="navUserArea" href="auth.html">注册 / 登录</a>
+      <button class="theme-toggle" onclick="toggleTheme()">?</button>
+    </div>
+  </nav>
+
+  <div class="message-container">
+    <div class="conversation-list">
+      <div class="conversation-item active">
+        <div>Barry</div>
+        <div style="font-size:12px;color:#999;">brb</div>
+      </div>
+      <div class="conversation-item">
+        <div>Taylor</div>
+        <div style="font-size:12px;color:#999;">I Love GAGA!!!</div>
+      </div>
+      <div class="conversation-item">
+        <div>大中国娜娜</div>
+        <div style="font-size:12px;color:#999;">娜姐我想听你唱贝如塔</div>
+      </div>
+    </div>
+
+    <div class="message-area">
+      <div class="message-header">
+        与 Barry 的对话
+      </div>
+
+      <div class="message-content">
+        <div class="message-bubble received">
+          <div>Homework done yet?</div>
+          <div class="message-time">昨天 14:30</div>
+        </div>
+
+        <div class="message-bubble sent">
+          <div>nah</div>
+          <div class="message-time">昨天 14:35</div>
+        </div>
+
+        <div class="message-bubble received">
+          <div>brb</div>
+          <div class="message-time">昨天 14:36</div>
+        </div>
+      </div>
+
+      <div class="message-input">
+        <textarea placeholder="输入消息..."></textarea>
+        <button>发送</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script>
+    // 登出功能
+    function logout() {
+      localStorage.removeItem("currentUser");
+      location.href = "index.html";
+    }
+
+    // 切换对话
+    document.querySelectorAll('.conversation-item').forEach(item => {
+      item.addEventListener('click', function () {
+        document.querySelectorAll('.conversation-item').forEach(i => {
+          i.classList.remove('active');
+        });
+        this.classList.add('active');
+
+        // 这里可以添加加载对应对话内容的逻辑
+        document.querySelector('.message-header').textContent = `与 ${this.querySelector('div').textContent} 的对话`;
+      });
+    });
+  </script>
+
+  <footer>
+    <p>Web编程大作业——<strong>你说得队</strong><br />陈&nbsp &nbsp睿 - 2023150070 &nbsp 李冠霆 - 2023150135<br />何隽烨 - 2023150134
+      &nbsp 陈思宇 - 2023150048
+    </p>
+  </footer>
+</body>
+
+</html>
